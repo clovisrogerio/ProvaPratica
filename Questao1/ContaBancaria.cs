@@ -1,8 +1,6 @@
-﻿using System.Globalization;
-
-namespace Questao1
+﻿namespace Questao1
 {
-    class ContaBancaria 
+    class ContaBancaria
     {
         static private double TaxaDeSaque = 3.50;
         public long NumeroDaConta { get; set; }
