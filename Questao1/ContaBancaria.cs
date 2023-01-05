@@ -1,4 +1,6 @@
-﻿namespace Questao1
+﻿using System.Globalization;
+
+namespace Questao1
 {
     class ContaBancaria
     {
@@ -27,7 +29,7 @@
 
         public string MostrarDados()
         {
-            return $"Conta {NumeroDaConta}, Titular: {NomeTitular}, Saldo: $ {Saldo:0.00}";
+            return $"Conta {NumeroDaConta}, Titular: {NomeTitular}, Saldo: $ {Saldo.ToString("0.00", CultureInfo.InvariantCulture)}";
         }
     }
 }
