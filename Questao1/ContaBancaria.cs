@@ -9,8 +9,6 @@ namespace Questao1
         public string NomeTitular { get; set; }
         public double Saldo { get; private set; }
 
-
-
         public ContaBancaria(long numeroDaConta, string nomeTitular, double saldo = 0)
         {
             NumeroDaConta = numeroDaConta;
