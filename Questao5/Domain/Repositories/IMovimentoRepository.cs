@@ -1,6 +1,9 @@
-﻿namespace Questao5.Domain.Repositories
+﻿using Questao5.Domain.Entities;
+
+namespace Questao5.Domain.Repositories
 {
-    public interface Interface
+    public interface IMovimentoRepository
     {
+        void Criar(Movimento movimento);
     }
 }
