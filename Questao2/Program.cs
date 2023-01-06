@@ -46,6 +46,7 @@ public class Program
     {
         var urlString = new Uri($"https://jsonmock.hackerrank.com/api/football_matches?year={year}&{team}={teamName}&page={pageNumber}");
         var response = httpClient.GetAsync(urlString).Result;
+
         if (response.IsSuccessStatusCode)
         {
             var responseData = response.Content.ReadAsStringAsync().Result;
@@ -53,6 +54,7 @@ public class Program
             var matchesArray = result["data"].Value<JArray>();
             return matchesArray.ToObject<List<FootballMatchesData>>();
         }
+
         return new List<FootballMatchesData>();
     }
 

@@ -7,7 +7,8 @@ namespace Questao1
         static private double TaxaDeSaque = 3.50;
         public long NumeroDaConta { get; set; }
         public string NomeTitular { get; set; }
-        private double Saldo { get; set; }
+        public double Saldo { get; private set; }
+
 
 
         public ContaBancaria(long numeroDaConta, string nomeTitular, double saldo = 0)
@@ -27,7 +28,7 @@ namespace Questao1
             this.Saldo += deposito;
         }
 
-        public string MostrarDados()
+        public override string ToString()
         {
             return $"Conta {NumeroDaConta}, Titular: {NomeTitular}, Saldo: $ {Saldo.ToString("0.00", CultureInfo.InvariantCulture)}";
         }
