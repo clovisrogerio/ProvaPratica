@@ -6,7 +6,6 @@ using Questao5.Application.Queries.Responses;
 using Questao5.Domain.Entities;
 using Questao5.Domain.Enumerators;
 using Questao5.Domain.Repositories;
-using Questao5.Infrastructure.Database.Repositories;
 using Questao5.Testes.Mocks;
 using Xunit;
 namespace Questao5.Testes.Handlers
