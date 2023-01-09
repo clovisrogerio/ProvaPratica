@@ -7,8 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Infrastructure\Database\CommandStore\**" />
+    <Compile Remove="Infrastructure\Database\DataContext\**" />
+    <Compile Remove="Infrastructure\Database\QueryStore\**" />
+    <Content Remove="Infrastructure\Database\CommandStore\**" />
+    <Content Remove="Infrastructure\Database\DataContext\**" />
+    <Content Remove="Infrastructure\Database\QueryStore\**" />
+    <EmbeddedResource Remove="Infrastructure\Database\CommandStore\**" />
+    <EmbeddedResource Remove="Infrastructure\Database\DataContext\**" />
+    <EmbeddedResource Remove="Infrastructure\Database\QueryStore\**" />
+    <None Remove="Infrastructure\Database\CommandStore\**" />
+    <None Remove="Infrastructure\Database\DataContext\**" />
+    <None Remove="Infrastructure\Database\QueryStore\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CSharpFunctionalExtensions" Version="2.37.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-	<PackageReference Include="Dapper" Version="2.0.35" />
+	<PackageReference Include="Dapper" Version="2.0.123" />
 	<PackageReference Include="Microsoft.Data.Sqlite" Version="3.1.6" />
     <PackageReference Include="MediatR" Version="11.0.0" />
 	<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
@@ -29,21 +45,6 @@
 		<PrivateAssets>all</PrivateAssets>
 		<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 	</PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Application\Commands\Requests\" />
-    <Folder Include="Application\Commands\Responses\" />
-    <Folder Include="Application\Handlers\" />
-    <Folder Include="Application\Queries\Requests\" />
-    <Folder Include="Application\Queries\Responses\" />
-    <Folder Include="Domain\Entities\" />
-    <Folder Include="Domain\Enumerators\" />
-    <Folder Include="Domain\Language\" />
-    <Folder Include="Infrastructure\Database\CommandStore\Requests\" />
-    <Folder Include="Infrastructure\Database\CommandStore\Responses\" />
-    <Folder Include="Infrastructure\Database\QueryStore\Requests\" />
-    <Folder Include="Infrastructure\Database\QueryStore\Responses\" />
   </ItemGroup>
 
 </Project>
