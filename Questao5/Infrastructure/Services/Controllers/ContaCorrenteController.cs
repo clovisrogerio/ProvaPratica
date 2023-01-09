@@ -1,30 +1,28 @@
-using CSharpFunctionalExtensions;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Questao5.Application.Commands.Requests;
-using Questao5.Application.Commands.Responses;
+using Questao5.Application.Queries.Requests;
 
 namespace Questao5.Infrastructure.Services.Controllers
 {
     [ApiController]
-    [Route("v1/movimento")]
-    public class MovimentoController : BaseController
+    [Route("v1/contacorrente")]
+    public class ContaCorrenteController : BaseController
     {
-        public MovimentoController(IMediator mediator)
+        public ContaCorrenteController(IMediator mediator)
             : base(mediator)
         { }
 
         [HttpPost]
         [Route("")]
         public IActionResult Create(
-            [FromBody] CriarMovimentacaoDeContaRequest command
+            [FromBody] ObterSaldoContaCorrenteRequest command
         )
         {
             var result = Mediator.Send(command);
             if (result.Result.FoiSucesso)
                 return Ok(result);
             return BadRequest(result.Result.Mensagem);
-           
         }
     }
 }
