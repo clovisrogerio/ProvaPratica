@@ -29,7 +29,8 @@ namespace Questao5.Application.Handlers
                 result = new ObterSaldoContaCorrenteResponse
                 {
                     FoiSucesso = false,
-                    Mensagem = "INVALID_ACCOUNT"
+                    TipoMensagem = "INVALID_ACCOUNT",
+                    Mensagem = $"Conta com id {request.IdContaCorrente} não encontrada"
                 };
                 return Task.FromResult(result);
             }
@@ -40,7 +41,8 @@ namespace Questao5.Application.Handlers
                 result = new ObterSaldoContaCorrenteResponse
                 {
                     FoiSucesso = false,
-                    Mensagem = "INACTIVE_ACCOUNT"
+                    TipoMensagem = "INACTIVE_ACCOUNT",
+                    Mensagem = "Conta inativa"
                 };
                 return Task.FromResult(result);
             }
@@ -68,7 +70,7 @@ namespace Questao5.Application.Handlers
                 SaldoAtual = saldoFinal,
                 DataConsulta = DateTime.Now,
                 Nome = account.Nome,
-                Numero = account.NumeroContaCorrente
+                Numero = account.Numero
             };
 
             return Task.FromResult(result);

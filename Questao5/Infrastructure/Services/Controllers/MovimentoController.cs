@@ -15,16 +15,15 @@ namespace Questao5.Infrastructure.Services.Controllers
         { }
 
         [HttpPost]
-        [Route("")]
-        public IActionResult Create(
+        [Route("criarmovimento")]
+        public IActionResult CriarMovimento(
             [FromBody] CriarMovimentacaoDeContaRequest command
         )
         {
             var result = Mediator.Send(command);
             if (result.Result.FoiSucesso)
-                return Ok(result);
-            return BadRequest(result.Result.Mensagem);
-           
+                return Ok($"Movimento criado com sucesso, ID:{result.Result.IdMovimento}");
+            return BadRequest($"Erro tipo: {result.Result.TipoMensagem}, {result.Result.Mensagem}");          
         }
     }
 }

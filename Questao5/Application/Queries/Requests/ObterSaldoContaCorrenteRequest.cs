@@ -6,6 +6,6 @@ namespace Questao5.Application.Queries.Requests
 {
     public class ObterSaldoContaCorrenteRequest : IRequest<ObterSaldoContaCorrenteResponse>
     {
-        public Guid IdContaCorrente { get; set; }
+        public string IdContaCorrente { get; set; }
     }
 }

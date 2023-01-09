@@ -13,16 +13,16 @@ namespace Questao5.Infrastructure.Services.Controllers
             : base(mediator)
         { }
 
-        [HttpPost]
-        [Route("")]
-        public IActionResult Create(
-            [FromBody] ObterSaldoContaCorrenteRequest command
+        [HttpGet]
+        [Route("obtersaldo")]
+        public IActionResult ObterSaldo(
+            [FromQuery] ObterSaldoContaCorrenteRequest command
         )
         {
             var result = Mediator.Send(command);
             if (result.Result.FoiSucesso)
-                return Ok(result);
-            return BadRequest(result.Result.Mensagem);
+                return Ok($"Numero da conta: {result.Result.Numero}, Nome do Titular: {result.Result.Nome}, Data da consulta: {result.Result.DataConsulta}, Saldo Atual:{result.Result.SaldoAtual}");
+            return BadRequest($"Erro tipo: {result.Result.TipoMensagem}, {result.Result.Mensagem}");
         }
     }
 }

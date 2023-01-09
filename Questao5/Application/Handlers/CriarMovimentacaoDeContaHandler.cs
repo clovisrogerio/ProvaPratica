@@ -20,69 +20,66 @@ namespace Questao5.Application.Handlers
         public Task<CriarMovimentacaoDeContaResponse> Handle(CriarMovimentacaoDeContaRequest request, CancellationToken cancellationToken)
         {
             CriarMovimentacaoDeContaResponse result;
-            // Aplicar Fail Fast Validations
-            if (request.NumeroContaCorrente == 0)
-            {
-                result = new CriarMovimentacaoDeContaResponse
-                {
-                    FoiSucesso = false,
-                    Mensagem = "INVALID_ACCOUNT"
-                };
-                return Task.FromResult(result);
-            }
 
             if (request.Valor <= 0)
             {
                 result = new CriarMovimentacaoDeContaResponse
                 {
                     FoiSucesso = false,
-                    Mensagem = "INVALID_VALUE"
+                    TipoMensagem = "INVALID_VALUE",
+                    Mensagem = "Valor invalido"
                 };
                 return Task.FromResult(result);
             }
 
-            if (request.TipoMovimento != TipoMovimento.Credito && request.TipoMovimento != TipoMovimento.Debito)
+            if (request.TipoMovimento != (char)TipoMovimento.Credito && request.TipoMovimento != (char)TipoMovimento.Debito)
             {
                 result = new CriarMovimentacaoDeContaResponse
                 {
                     FoiSucesso = false,
-                    Mensagem = "INVALID_TYPE"
+                    TipoMensagem = "INVALID_TYPE",
+                    Mensagem = "Tipo de movimento invalido, apenas 'C' Credito e 'D' Debito são aceitos"
                 };
                 return Task.FromResult(result);
             }
 
-            // Check if account exists
             var account = _contaCorrenteRepositorio.ObterContaCorrentePeloId(request.IdContaCorrente);
             if (account == null)
             {
                 result = new CriarMovimentacaoDeContaResponse
                 {
                     FoiSucesso = false,
-                    Mensagem = "INVALID_ACCOUNT"
+                    TipoMensagem = "INVALID_ACCOUNT",
+                    Mensagem = $"Conta com id {request.IdContaCorrente} não encontrada"
                 };
                 return Task.FromResult(result);
             }
 
-            // Check if account is active
             if (!account.Ativo)
             {
                 result = new CriarMovimentacaoDeContaResponse
                 {
                     FoiSucesso = false,
-                    Mensagem = "INACTIVE_ACCOUNT"
+                    TipoMensagem = "INACTIVE_ACCOUNT",
+                    Mensagem = "Conta inativa"
                 };
                 return Task.FromResult(result);
             }
 
-            // Cria a entidade
-            var movimento = new Movimento(request.IdContaCorrente, request.TipoMovimento, request.Valor);
+            var movimento = new Movimento
+            {
+                IdMovimento = Guid.NewGuid().ToString().ToUpper(),
+                DataMovimento = DateTime.Now.ToShortDateString(),
+                IdContaCorrente = request.IdContaCorrente,
+                TipoMovimento = (TipoMovimento)request.TipoMovimento,
+                Valor = request.Valor
+            };
 
-            // Persiste a entidade no banco
             _movimentoRepositorio.Criar(movimento);
 
-            // Retorna a resposta
-            result =  new CriarMovimentacaoDeContaResponse
+            result = new CriarMovimentacaoDeContaResponse
             {
+                FoiSucesso = true,
                 IdMovimento = movimento.IdMovimento
             };
             return Task.FromResult(result);
