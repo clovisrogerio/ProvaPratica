@@ -17,6 +17,28 @@ namespace Questao5.Infrastructure.Database.Repositories
             this.databaseConfig = databaseConfig;
         }
 
+        public List<Movimento> ObterMovimentosDaContaCorrente(string contaCorrenteId)
+        {
+            var listaDeMovimentos = new List<Movimento>();
+            var connection = new SqliteConnection(databaseConfig.Name);
+            connection.Open();
+            using (var reader = connection.ExecuteReader($"SELECT tipomovimento, valor FROM movimento WHERE idcontacorrente = '{contaCorrenteId.ToUpper()}'"))
+            {
+                while (reader.Read())
+                {
+                    var movimento = new Movimento();
+
+                    movimento.TipoMovimento = (TipoMovimento)Convert.ToChar(reader["tipomovimento"]);
+                    movimento.Valor = Convert.ToDouble(reader["valor"]);
+
+                    listaDeMovimentos.Add(movimento);
+                }
+            }
+
+            connection.CloseAsync();
+            return listaDeMovimentos;
+        }
+
         public void Criar(Movimento movimento)
         {
             var connection = new SqliteConnection(databaseConfig.Name);

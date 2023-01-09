@@ -2,7 +2,6 @@ using CSharpFunctionalExtensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Questao5.Application.Commands.Requests;
-using Questao5.Application.Commands.Responses;
 
 namespace Questao5.Infrastructure.Services.Controllers
 {
@@ -17,10 +16,10 @@ namespace Questao5.Infrastructure.Services.Controllers
         [HttpPost]
         [Route("criarmovimento")]
         public IActionResult CriarMovimento(
-            [FromBody] CriarMovimentacaoDeContaRequest command
+            [FromBody] CriarMovimentacaoDeContaRequest request
         )
         {
-            var result = Mediator.Send(command);
+            var result = Mediator.Send(request);
             if (result.Result.FoiSucesso)
                 return Ok($"Movimento criado com sucesso, ID:{result.Result.IdMovimento}");
             return BadRequest($"Erro tipo: {result.Result.TipoMensagem}, {result.Result.Mensagem}");          

@@ -6,6 +6,7 @@ using Questao5.Application.Queries.Responses;
 using Questao5.Domain.Entities;
 using Questao5.Domain.Enumerators;
 using Questao5.Domain.Repositories;
+using Questao5.Infrastructure.Database.Repositories;
 
 namespace Questao5.Application.Handlers
 {
@@ -35,7 +36,6 @@ namespace Questao5.Application.Handlers
                 return Task.FromResult(result);
             }
 
-            // Check if account is active
             if (!account.Ativo)
             {
                 result = new ObterSaldoContaCorrenteResponse
@@ -47,7 +47,7 @@ namespace Questao5.Application.Handlers
                 return Task.FromResult(result);
             }
 
-            var movimentosDaContaCorrente = _contaCorrenteRepositorio.ObterMovimentosDaContaCorrente(request.IdContaCorrente);
+            var movimentosDaContaCorrente = _movimentoRepositorio.ObterMovimentosDaContaCorrente(request.IdContaCorrente);
             var saldoFinal = 0.0;
             foreach (var movimentos in movimentosDaContaCorrente)
             {
@@ -63,7 +63,6 @@ namespace Questao5.Application.Handlers
                 }                  
             }
 
-            // Retorna a resposta
             result = new ObterSaldoContaCorrenteResponse
             {
                 FoiSucesso = true,
